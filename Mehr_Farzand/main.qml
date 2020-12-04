@@ -72,7 +72,7 @@ ApplicationWindow {
 
             model: ListModel {
                 ListElement { title: "Add"; source: "qrc:/PageAdd.qml" }
-                //ListElement { title: "Button"; source: "qrc:/pages/ButtonPage.qml" }
+
 
             }
 
