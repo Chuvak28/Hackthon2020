@@ -9,8 +9,6 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
 
 
-
-
 ApplicationWindow {
     id: appWindowId
     visible: true
@@ -27,19 +25,23 @@ ApplicationWindow {
             anchors.fill: parent
 
             ToolButton {
-                //text: qsTr("‹")
                 icon.source:  "icons/gallery/20x20/drawer.png"
                 onClicked: drawerId.open()
             }
             Label {
                 id: titleLabel
+                anchors.centerIn: parent
                 text: "Mehr Farzand"
-                font.pixelSize: 20
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
             }
+            //            Label {
+            //                id: titleLabel
+            //                text: "Mehr Farzand"
+            //                font.pixelSize: 20
+            //                elide: Label.ElideRight
+            //                horizontalAlignment: Qt.AlignHCenter
+            //                verticalAlignment: Qt.AlignVCenter
+            //                Layout.fillWidth: true
+            //            }
         }
     }
 
@@ -48,9 +50,10 @@ ApplicationWindow {
 
         width: Math.min(appWindowId.width, appWindowId.height)/3*2
         height: parent.height
+        interactive: stackView.depth === 1
 
-        ListView{
-            id: listViewId
+        ListView {
+            id: listView
 
             focus: true
             currentIndex: -1
@@ -58,38 +61,24 @@ ApplicationWindow {
 
             delegate: ItemDelegate {
                 width: parent.width
-                text: model.text
+                text: model.title
                 highlighted: ListView.isCurrentItem
                 onClicked: {
-                    //listViewId.currentIndex =index
-                    //drawerId.close()
-                    model.triggered()
+                    listView.currentIndex = index
+                    stackView.push(model.source)
+                    drawer.close()
                 }
             }
 
             model: ListModel {
-                ListElement {
-                    text: qsTr("Map...")
-                    triggered: function(){ fileOpenDialog.open(); }
-                }
-                ListElement {
-                    text: qsTr("Graph...")
-                    triggered: function(){ fileOpenDialog.open(); }
-                }
-                ListElement {
-                    text: qsTr("Add...")
-                    triggered: function(){ aboutDialog.open(); }
-                }
+                ListElement { title: "Add"; source: "qrc:/PageAdd.qml" }
+                //ListElement { title: "Button"; source: "qrc:/pages/ButtonPage.qml" }
+
             }
+
+            ScrollIndicator.vertical: ScrollIndicator { }
         }
+
+
     }
 }
-//Window {
-//    id: window
-//    width: 640
-//    height: 480
-//    visible: true
-//    title: qsTr("Hello World")
-
-
-//}
