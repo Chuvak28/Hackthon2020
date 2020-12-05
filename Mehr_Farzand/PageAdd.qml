@@ -195,7 +195,7 @@ Pane {
 
 
                             demo.upload(fnameString, lnameString,timeString,addrString,contacString,lat,lon)
-                            console.log(lat,lon,timeString);
+                            console.log(fnameString, lnameString,timeString,addrString,contacString,lat,lon);
                         }
                     }
                 }

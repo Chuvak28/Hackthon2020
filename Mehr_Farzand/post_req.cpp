@@ -11,27 +11,6 @@ POST_REQ::POST_REQ()
 
 }
 
-//void POST_REQ::processImage(const QString& path) {
-//    QUrl imageUrl(path);
-//    qDebug() << path << "========PATH=========";
-//    QQmlEngine* engine = QQmlEngine::contextForObject(this)->engine();
-//    QQmlImageProviderBase* imageProviderBase = engine->imageProvider(imageUrl.host());
-//    QQuickImageProvider* imageProvider = static_cast<QQuickImageProvider*>(imageProviderBase);
-
-//    QSize imageSize;
-//    QString imageId = imageUrl.path().remove(0,1);
-//    qDebug() << imageId << "========ID=========";
-//    QImage image = imageProvider->requestImage(imageId, &imageSize, imageSize);
-//    QString strPath="/home/jasuryuldashev/camera.jpeg";
-//    if( !image.isNull()) {
-//        // обработка изображения
-//        qDebug() << "img.format() Foto" << image.format();
-//        qDebug() << "working" << endl;
-
-//        image.save(strPath,"JPEG");
-//    }
-//}
-
 void POST_REQ::upload(const QString &firstN,const QString &lastN,const QString& dateTime,const QString &addr,const QString &contactn,const QString &lat, const QString &lon)
 {
     //==================================

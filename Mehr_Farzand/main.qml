@@ -83,6 +83,8 @@ ApplicationWindow {
 
             model: ListModel {
                 ListElement { title: "Add"; source: "qrc:/PageAdd.qml" }
+                ListElement { title: "Graph"; source: "qrc:/PageGraph.qml" }
+                ListElement { title: "Chat"; source: "qrc:/PageGraph.qml" }
 
 
             }

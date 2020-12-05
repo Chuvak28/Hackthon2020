@@ -15,5 +15,30 @@
         <file>icons/gallery/20x20@4/menu.png</file>
         <file>icons/gallery/index.theme</file>
         <file>PageAdd.qml</file>
+        <file>PageGraph.qml</file>
+        <file>PageChat.qml</file>
+        <file>images/Albert_Einstein.png</file>
+        <file>images/Albert_Einstein@2x.png</file>
+        <file>images/Albert_Einstein@3x.png</file>
+        <file>images/Albert_Einstein@4x.png</file>
+        <file>images/arrow.png</file>
+        <file>images/arrow@2x.png</file>
+        <file>images/arrow@3x.png</file>
+        <file>images/arrow@4x.png</file>
+        <file>images/arrows.png</file>
+        <file>images/arrows@2x.png</file>
+        <file>images/arrows@3x.png</file>
+        <file>images/arrows@4x.png</file>
+        <file>images/Ernest_Hemingway.png</file>
+        <file>images/Ernest_Hemingway@2x.png</file>
+        <file>images/Ernest_Hemingway@3x.png</file>
+        <file>images/Hans_Gude.png</file>
+        <file>images/Hans_Gude@2x.png</file>
+        <file>images/Hans_Gude@3x.png</file>
+        <file>images/Hans_Gude@4x.png</file>
+        <file>images/qt-logo.png</file>
+        <file>images/qt-logo@2x.png</file>
+        <file>images/qt-logo@3x.png</file>
+        <file>images/qt-logo@4x.png</file>
     </qresource>
 </RCC>
