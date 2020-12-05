@@ -16,7 +16,26 @@ ApplicationWindow {
     height: 520
     title: qsTr("Mehr Farzand")
 
-    color: "beige"
+    color: "red"
+
+    Shortcut {
+        sequences: ["Esc", "Back"]
+        enabled: stackView.depth > 1
+        onActivated: navigateBackAction.trigger()
+    }
+
+    Action {
+        id: navigateBackAction
+        icon.name: stackView.depth > 1 ? "back" : "drawer"
+        onTriggered: {
+            if (stackView.depth > 1) {
+                stackView.pop()
+                listView.currentIndex = -1
+            } else {
+                drawerId.open()
+            }
+        }
+    }
 
     header: ToolBar{
 
@@ -33,15 +52,7 @@ ApplicationWindow {
                 anchors.centerIn: parent
                 text: "Mehr Farzand"
             }
-            //            Label {
-            //                id: titleLabel
-            //                text: "Mehr Farzand"
-            //                font.pixelSize: 20
-            //                elide: Label.ElideRight
-            //                horizontalAlignment: Qt.AlignHCenter
-            //                verticalAlignment: Qt.AlignVCenter
-            //                Layout.fillWidth: true
-            //            }
+
         }
     }
 
@@ -66,7 +77,7 @@ ApplicationWindow {
                 onClicked: {
                     listView.currentIndex = index
                     stackView.push(model.source)
-                    drawer.close()
+                    drawerId.close()
                 }
             }
 
@@ -80,5 +91,29 @@ ApplicationWindow {
         }
 
 
+    }
+
+    StackView {
+        id: stackView
+        anchors.fill: parent
+
+        initialItem: Pane {
+            id: pane
+
+
+            Label {
+                text: "Мы вас любим папа и мама"
+                anchors.margins: 20
+                anchors.top: logo.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: arrow.top
+                horizontalAlignment: Label.AlignHCenter
+                verticalAlignment: Label.AlignVCenter
+                wrapMode: Label.Wrap
+            }
+
+
+        }
     }
 }
