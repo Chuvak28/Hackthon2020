@@ -1,9 +1,39 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtPositioning 5.12
+import POST_REQ 1.0
 
 
 Pane {
     id: pane
+
+    property string lat
+    property string lon
+    property date currentTime: new Date()
+    property string timeString
+    property string fnameString
+    property string lnameString
+    property string addrString
+    property string contacString
+
+    POST_REQ {
+        id: demo
+    }
+
+
+
+    PositionSource {
+        id: src
+        updateInterval: 1000
+        active: true
+
+        onPositionChanged: {
+            var coord = src.position.coordinate;
+            console.log("Coordinate:", coord.latitude,coord.longitude );
+            lat=coord.latitude;
+            lon=coord.longitude;
+        }
+    }
 
     SwipeView {
         id: view
@@ -27,6 +57,7 @@ Pane {
                         anchors.left: parent.left
                     }
                     TextField {
+                        id:fName
                         x: .3*parent.width
                         width: .65*parent.width
                         anchors.verticalCenter: parent.verticalCenter
@@ -38,15 +69,14 @@ Pane {
                     width: parent.width
 
                     Label {
-
                         text: "Surname"
                         anchors.verticalCenter: parent.verticalCenter
                         color: "black"
                         anchors.left: parent.left
                     }
                     TextField {
+                        id:lName
                         x: .3*parent.width
-
                         anchors.verticalCenter: parent.verticalCenter
                         width: .65*parent.width
                     }
@@ -71,6 +101,7 @@ Pane {
                         anchors.left: parent.left
                     }
                     TextField {
+                        id:addr1
                         x: .3*parent.width
                         width: .65*parent.width
                         anchors.verticalCenter: parent.verticalCenter
@@ -89,8 +120,8 @@ Pane {
                         anchors.left: parent.left
                     }
                     TextField {
+                        id:phNumber
                         x: .3*parent.width
-
                         anchors.verticalCenter: parent.verticalCenter
                         width: .65*parent.width
                     }
@@ -108,8 +139,8 @@ Pane {
                         anchors.left: parent.left
                     }
                     TextField {
+                        id: latAdd
                         x: .3*parent.width
-
                         anchors.verticalCenter: parent.verticalCenter
                         width: .65*parent.width
                     }
@@ -127,8 +158,8 @@ Pane {
                         anchors.left: parent.left
                     }
                     TextField {
+                        id: longAdd
                         x: .3*parent.width
-
                         anchors.verticalCenter: parent.verticalCenter
                         width: .65*parent.width
                     }
@@ -144,27 +175,27 @@ Pane {
 
                 Column {
                     y: 50
-                    spacing: 40
+                    spacing: 15
                     width: parent.width
 
                     Button {
-                        id: cpatureButton
+                        id: sendButton
+                        x: parent.width/2
+                        text: "Save to the database"
+                        visible : true
+                        enabled: true
 
-                        opacity: 0.5
+                        onClicked:
+                        {
+                            timeString = currentTime.toLocaleString(locale,"yyyy-MM-dd");//  Locale.ShortFormat);
+                            fnameString = fName.text
+                            lnameString = lName.text
+                            addrString = addr1.text
+                            contacString = phNumber.text
 
-                        Text {
-                            id: textId
-                            text: qsTr("Save to Database")
-                            color: "black"
-                        }
-                        onClicked: {
-                            camera.imageCapture.capture();
-                            cpatureButton.enabled=false
-                            textId.visible=false
-                            sendButton.visible = true
-                            sendButton.enabled = true
-                            complainText.visible = true
 
+                            demo.upload(fnameString, lnameString,timeString,addrString,contacString,lat,lon)
+                            console.log(lat,lon,timeString);
                         }
                     }
                 }
@@ -179,88 +210,3 @@ Pane {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 }
-
-
-
-//SwipeView {
-//    id: view
-//    currentIndex: 0
-//    anchors.fill: parent
-
-//    Repeater {
-//        model: 3
-
-//        Pane {
-//            width: view.width
-//            height: view.height
-
-//            Column {
-//                spacing: 40
-//                width: parent.width
-
-//                Button {
-//                    id: cpatureButton
-
-//                    opacity: 0.5
-
-//                    Text {
-//                        id: textId
-//                        text: qsTr("Take Photo")
-//                        color: "white"
-//                    }
-//                    onClicked: {
-//                        camera.imageCapture.capture();
-//                        cpatureButton.enabled=false
-//                        textId.visible=false
-//                        sendButton.visible = true
-//                        sendButton.enabled = true
-//                        complainText.visible = true
-
-
-//                    }
-//                }
-
-////                Button {
-////                    id: sendButton
-
-////                    text: "Send"
-////                    visible : false
-////                    enabled: false
-
-
-
-////                    onClicked:
-////                    {
-////                        timeString = currentTime.toLocaleString(locale,"yyyy-MM-dd hh:mm:ss");//  Locale.ShortFormat);
-////                        textString = complainText.text
-////                        demo.upload(lat,lon, timeString,textString, photoString)
-////                        console.log(lat,lon,timeString, textString, photoString);
-////                    }
-////                }
-
-////                TextField {
-////                    id: complainText
-
-////                    x: parent.width/2
-////                    y: parent.bottom
-////                    visible : false
-////                    width: 160
-////                    placeholderText: "Enter Text Here"
-////                    focus: true
-////                    color: "#aaa"
-////                }
-
-//            }
-//        }
-//    }
-//    PageIndicator {
-//        count: view.count
-//        currentIndex: view.currentIndex
-//        anchors.bottom: parent.bottom
-//        anchors.horizontalCenter: parent.horizontalCenter
-//    }
-//}
-
-
-
-
