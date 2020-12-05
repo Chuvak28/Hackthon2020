@@ -1,4 +1,4 @@
-QT += quick
+QT += quick charts
 
 CONFIG += c++11
 
@@ -25,3 +25,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     post_req.h
+
+DISTFILES +=

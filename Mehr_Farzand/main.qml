@@ -7,16 +7,14 @@ import QtQuick.Layouts 1.12
 import Qt.labs.settings 1.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
-
+import POST_REQ 1.0
 
 ApplicationWindow {
     id: appWindowId
     visible: true
     width: 360
     height: 520
-    title: qsTr("Mehr Farzand")
-
-    color: "red"
+    title: qsTr("Mehribon Farzandlar")
 
     Shortcut {
         sequences: ["Esc", "Back"]
@@ -39,7 +37,7 @@ ApplicationWindow {
 
     header: ToolBar{
 
-        Material.foreground: "white"
+        Material.foreground: "blue"
         RowLayout {
             anchors.fill: parent
 
@@ -50,7 +48,7 @@ ApplicationWindow {
             Label {
                 id: titleLabel
                 anchors.centerIn: parent
-                text: "Mehr Farzand"
+                text: "Mehribon Farzandlar"
             }
 
         }
@@ -83,39 +81,97 @@ ApplicationWindow {
 
             model: ListModel {
                 ListElement { title: "Add"; source: "qrc:/PageAdd.qml" }
-                ListElement { title: "Graph"; source: "qrc:/PageGraph.qml" }
+                //ListElement { title: "Graph"; source: "qrc:/PageGraph.qml" }
                 ListElement { title: "Chat"; source: "qrc:/PageGraph.qml" }
-
-
+                ListElement { text: qsTr("About...")
+                    triggered: function(){ aboutDialog.open(); }
+                }
+                //ScrollIndicator.vertical: ScrollIndicator { }
             }
-
-            ScrollIndicator.vertical: ScrollIndicator { }
         }
 
 
     }
-
     StackView {
         id: stackView
         anchors.fill: parent
 
-        initialItem: Pane {
-            id: pane
+        //        initialItem: Pane {
+        //            id: pane
+        Flickable{
+            width: parent.width
+            height: parent.height
+            contentHeight: gridLayoutID.implicitHeight + 100
+            GridLayout
+            {
+                id: gridLayoutID
+                columns: 2
+                anchors.centerIn: parent
+                columnSpacing: 100
 
+                Button {
+                    id: cpatureButton
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    opacity: 0.5
 
-            Label {
-                text: "Мы вас любим папа и мама"
-                anchors.margins: 20
-                anchors.top: logo.bottom
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: arrow.top
-                horizontalAlignment: Label.AlignHCenter
-                verticalAlignment: Label.AlignVCenter
-                wrapMode: Label.Wrap
+                    Text {
+                        id: textId
+                        text: qsTr("Cameras")
+                        color: "black"
+                        anchors.centerIn: parent
+                    }
+                    onClicked: {
+                        stackView.push("Cameras.qml")
+                    }
+
+                    background: Rectangle {
+                        color: "#00c0f5"
+                        implicitWidth: 150
+                        implicitHeight: 150
+                        border.color: control.down ? "#17a81a" : "#21be2b"
+                        border.width: 1
+                        radius: 14
+                    }
+                }
+
+                Button {
+                    id: sensorsButton
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    opacity: 0.5
+
+                    Text {
+                        id: sensorsId
+                        text: qsTr("Sensors")
+                        color: "black"
+                        anchors.centerIn: parent
+                    }
+                    onClicked: {
+
+                    }
+
+                    background: Rectangle {
+                        color: "#00c0f5"
+                        implicitWidth: 150
+                        implicitHeight: 150
+                        border.color: control.down ? "#17a81a" : "#21be2b"
+                        border.width: 1
+                        radius: 14
+                    }
+                }
             }
-
-
         }
+    }
+    Dialog {
+        id: aboutDialog
+        title: qsTr("About")
+        Label {
+            anchors.fill: parent
+            text: qsTr("QML Image Viewer\nA part of the QmlBook\nhttp://qmlbook.org")
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        standardButtons: StandardButton.Ok
     }
 }
